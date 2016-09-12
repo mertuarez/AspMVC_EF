@@ -1,0 +1,17 @@
+﻿@{
+    var con = new AspMvcEf.Models.Entities();
+    var model = con.Test_Result;
+    var musers = model.GroupBy(u => u.Test_User).Select(x => new { k = x.Key, v = x.Count() }).ToDictionary(x => x.k);
+    
+    
+
+    var myChart = new Chart(width: 600, height: 400)
+    .AddTitle("Chart Title")
+    .AddSeries(
+        name: "Employee", chartType : "Pie",
+        xValue: musers.Keys.Select(x=> x.Name).ToArray(),
+        yValues: musers.Values.Select(x => x.v).ToArray()
+        )
+        .AddLegend()
+    .Write();
+}

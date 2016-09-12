@@ -1,0 +1,53 @@
+﻿@model AspMvcEf.Models.Test_Schedule
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layout.cshtml";
+    var tt = new AspMvcEf.Models.Entities().Test_Group.ToList();
+    var tt2 = new AspMvcEf.Models.Entities().Test_Url.ToList();
+    var tt3 = new AspMvcEf.Models.Entities().Test_Db.ToList();
+}
+
+<h2>Testy Add/Edit</h2>
+@using (Html.BeginForm())
+{
+    <table >
+
+        <tr>
+            <td></td>
+            <td>@Html.HiddenFor(m => m.Id)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Name)</td>
+            <td>@Html.EditorFor(m => m.Name)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Test_Group_Id)</td>
+            <td>@Html.DropDownListFor(m => m.Test_Group_Id, new SelectList(tt, "Id", "Name"))</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Time_Start)</td>
+            <td>@Html.EditorFor(m => m.Time_Start)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Flag_Start)</td>
+            <td>@Html.EditorFor(m => m.Flag_Start)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Flag_Stop)</td>
+            <td>@Html.EditorFor(m => m.Flag_Stop)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Test_Url_Id)</td>
+            <td>@Html.DropDownListFor(m => m.Test_Url_Id, new SelectList(tt2, "Id", "Name"))</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Test_Db_Id)</td>
+            <td>@Html.DropDownListFor(m => m.Test_Db_Id, new SelectList(tt3, "Id", "Name"))</td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit" /></td>
+        </tr>    
+
+    </table>
+    
+}

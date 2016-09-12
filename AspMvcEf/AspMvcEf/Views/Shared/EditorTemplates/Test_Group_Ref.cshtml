@@ -1,0 +1,19 @@
+﻿@model AspMvcEf.Models.Test_Group_Ref
+@{
+    var tt2 = new AspMvcEf.Models.Entities().Test.ToList();
+}
+<table border="1">
+    <tr>
+        <td>
+            @Html.HiddenFor(m => m.Id)
+            @Html.HiddenFor(m => m.Test_Group_Id)
+            @Html.ActionLink("del", "Remove", "TestGroupRef", new { id = Model.Id }, null)
+        </td>
+        <td>
+            @Html.LabelFor(m => m.Test_Id)
+        </td>
+        <td>
+            @Html.DropDownListFor(m => m.Test_Id, new SelectList(tt2, "Id", "Name"))
+        </td>
+    </tr>
+</table>

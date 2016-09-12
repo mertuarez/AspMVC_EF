@@ -1,0 +1,81 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="The description of my page" />
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/Scripts/jquery")
+    @Scripts.Render("~/Scripts/jqueryval")
+    <script type="text/javascript">
+        function addDynamic()
+        {
+            var item = $(".dynamic").children().last().clone();
+            item.appendTo(".dynamic");
+            item.addClass("new");
+            item.find("*").attr("name", function (k, v) {
+                if (v === undefined) return v;
+
+                console.log(k, v);
+                var num = v.match(/\[(\d)\]/)[1];
+                return v.replace(/\[(\d)\]/, "["+(++num)+"]");
+            });
+            item.find("*[name$='.Id']").attr("value", "0");
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <ul class="nav">
+            <li>
+                @Html.ActionLink("Home", "Index", "Home", null, null)
+            </li>
+            <li>
+                @Html.ActionLink("Testy", "Index", "Test", null, null)
+                <ul>
+                    <li>
+                        @Html.ActionLink("Test Typy", "Index", "TestType", null, null)
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                @Html.ActionLink("Test Skupiny", "Index", "TestGroup", null, null)
+            </li>
+            <li>
+                @Html.ActionLink("Plany", "Index", "TestSchedule", null, null)
+                <ul>
+                    <li>
+                        @Html.ActionLink("Vysledky", "Index", "TestResult", null, null)
+                    </li>
+                    <li>
+                        @Html.ActionLink("Url", "Index", "TestUrl", null, null)
+                        <ul>
+                            <li>
+                                @Html.ActionLink("Pouzivatelia", "Index", "TestUser", null, null)
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        @Html.ActionLink("Databaza", "Index", "TestDb", null, null)
+                    </li>
+                </ul>
+            </li>
+            <li>
+                @Html.ActionLink("Grafy", "Index", "TestGraf", null, null)
+            </li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div>@ViewBag.Result</div>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

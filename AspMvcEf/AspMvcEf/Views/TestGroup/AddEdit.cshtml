@@ -1,0 +1,49 @@
+﻿@model AspMvcEf.Models.Test_Group
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layout.cshtml";
+    if (Model != null && Model.Test_Group_Ref.Count == 0)
+    {
+        Model.Test_Group_Ref.Add(new AspMvcEf.Models.Test_Group_Ref() { Test_Group_Id = Model.Id });
+        ViewBag.ClassNew = "new";
+    }
+}
+
+@functions {
+    object test(object o)
+    {
+        return o;
+    }
+}
+<h2>Testy Add/Edit</h2>
+@using (Html.BeginForm())
+{
+    <table>
+
+
+        <tr>
+            <td></td>
+            <td>@Html.HiddenFor(m => m.Id)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Name)</td>
+            <td>@Html.EditorFor(m => m.Name)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Test_Group_Ref)</td>
+            <td>
+                <a href="javascript:addDynamic()">add</a>
+                <div class="dynamic @ViewBag.ClassNew">
+                    @Html.EditorFor(m => m.Test_Group_Ref)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit" /></td>
+        </tr>
+    </table>
+
+
+
+
+}

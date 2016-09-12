@@ -1,0 +1,27 @@
+﻿@model AspMvcEf.Models.Test_Schedule
+@{
+    var tt = new AspMvcEf.Models.Entities().Test_Group.ToList();
+    var tt2 = new AspMvcEf.Models.Entities().Test.ToList();
+}
+<table border="1">
+    <tr>
+        <td>
+            @Html.EditorFor(m => m.Id)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.EditorFor(m => m.Name)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DropDownListFor(m => m.Test_Group_Id, new SelectList(tt, "Id", "Name"))
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DropDownListFor(m => m.Test_Id, new SelectList(tt2, "Id", "Id"))
+        </td>
+    </tr>
+</table>

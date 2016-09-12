@@ -1,0 +1,32 @@
+﻿@model AspMvcEf.Models.Test_Url
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layout.cshtml";
+    
+}
+
+<h2>Testy Add/Edit</h2>
+@using (Html.BeginForm())
+{
+    <table >
+
+        <tr>
+            <td></td>
+            <td>@Html.HiddenFor(m => m.Id)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Name)</td>
+            <td>@Html.EditorFor(m => m.Name)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Url)</td>
+            <td>@Html.EditorFor(m => m.Url)</td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit" /></td>
+        </tr>    
+
+    </table>
+
+    
+}

@@ -1,0 +1,41 @@
+﻿@model ICollection<AspMvcEf.Models.Test_Schedule>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layout.cshtml";
+    
+}
+
+<h2>Test Plany</h2>
+@Html.ActionLink("Add", "AddEdit", null, new { id = 0 }, null)
+
+<table >
+    <tr>
+        <th>-</th>
+        <th>-</th>
+        <th>-</th>
+        <th>Id</th>
+        <th>Nazov</th>
+        <th>Skupina</th>
+        <th>Cas</th>
+        <th>Start</th>
+        <th>Stop</th>
+        <th>Url</th>
+        <th>Db</th>
+    </tr>
+    @foreach (AspMvcEf.Models.Test_Schedule item in Model)
+    {
+        <tr>
+            <td>@Html.ActionLink("edit", "AddEdit", null, new { id = item.Id}, null)</td>
+            <td>@Html.ActionLink("del", "Remove", null, new { id = item.Id }, null)</td>
+            <td>@Html.ActionLink("start", "Run", null, new { id = item.Id }, null)</td>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>@item.Test_Group.Name</td>
+            <td>@item.Time_Start</td>
+            <td>@item.Flag_Start</td>
+            <td>@item.Flag_Stop</td>
+            <td>@item.Test_Url.Name</td>
+            <td>@item.Test_Db.Name</td>
+        </tr>
+    }
+</table>

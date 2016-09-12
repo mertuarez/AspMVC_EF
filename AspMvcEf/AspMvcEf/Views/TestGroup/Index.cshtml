@@ -1,0 +1,27 @@
+﻿@model ICollection<AspMvcEf.Models.Test_Group>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layout.cshtml";
+
+}
+
+<h2>Test Skupiny</h2>
+@Html.ActionLink("Add", "AddEdit", null, new { id = 0 }, null)
+
+<table >
+    <tr>
+        <th>-</th>
+        <th>-</th>
+        <th>Id</th>
+        <th>Nazov Skupiny</th>
+    </tr>
+    @foreach (AspMvcEf.Models.Test_Group item in Model)
+    {
+        <tr>
+            <td>@Html.ActionLink("edit", "AddEdit", null, new { id = item.Id }, null)</td>
+            <td>@Html.ActionLink("del", "Remove", null, new { id = item.Id }, null)</td>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+        </tr>
+    }
+</table>

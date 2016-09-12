@@ -1,0 +1,29 @@
+﻿@model AspMvcEf.Models.Test_Group_Ref
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layout.cshtml";
+    
+}
+
+<h2>Testy Add/Edit</h2>
+@using (Html.BeginForm())
+{
+    <table >
+
+        <tr>
+            <td>@Html.EditorFor(m => m.Id)</td>
+        </tr>
+        <tr>
+            <td>@Html.EditorFor(m => m.Test_Group_Id)</td>
+        </tr>
+        <tr>
+            <td>@Html.EditorFor(m => m.Test_Id)</td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit" /></td>
+        </tr>    
+
+    </table>
+
+    
+}

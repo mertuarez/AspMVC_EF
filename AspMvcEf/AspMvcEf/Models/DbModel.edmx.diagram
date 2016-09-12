@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="889f99782b014c1c97544f4b9a2967f9" Name="Diagram1">
+        <EntityTypeShape EntityType="TestingModel.Test" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Test_Db" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Test_Group" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Test_Group_Ref" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Test_Result" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Test_Schedule" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Test_Type" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Test_Url" Width="1.5" PointX="5.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestingModel.Test_User" Width="1.5" PointX="8" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="TestingModel.FK_Test_Group_Ref_Test_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="TestingModel.FK_Test_Result_Test" ManuallyRouted="false" />
+        <AssociationConnector Association="TestingModel.FK_Test_User_Test_Url" ManuallyRouted="false" />
+        <AssociationConnector Association="TestingModel.FK_Test_Test_Type" />
+        <AssociationConnector Association="TestingModel.FK_Test_Schedule_Test_Db" />
+        <AssociationConnector Association="TestingModel.FK_Test_Group_Ref_Test_Group" />
+        <AssociationConnector Association="TestingModel.FK_Test_Result_Test_Group" />
+        <AssociationConnector Association="TestingModel.FK_Test_Schedule_Test_Group" />
+        <AssociationConnector Association="TestingModel.FK_Test_Result_Test_Schedule" />
+        <AssociationConnector Association="TestingModel.FK_Test_Result_Test_User" />
+        <AssociationConnector Association="TestingModel.FK_Test_Schedule_Test_Url" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,39 @@
+﻿@model AspMvcEf.Models.Test
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layout.cshtml";
+    var tt = new AspMvcEf.Models.Entities().Test_Type.ToList();
+
+}
+
+<h2>Testy Add/Edit</h2>
+@using (Html.BeginForm())
+{
+    <table >
+
+
+        <tr>
+            <td></td>
+            <td>@Html.HiddenFor(m => m.Id)</td>
+        </tr>
+        <tr>
+            <td>Nazov</td>
+            <td>@Html.EditorFor(m => m.Name)</td>
+        </tr>
+        <tr>
+            <td>Typ Zmluvy</td>
+            <td>@Html.DropDownListFor(m => m.Test_Type_Id, new SelectList(tt, "Id", "Name"))</td>
+        </tr>
+        <tr>
+            <td>Cislo Zmluvy</td>
+            <td>@Html.EditorFor(m => m.Insurance_Id)</td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit" /></td>
+        </tr>
+
+
+    </table>
+
+
+}

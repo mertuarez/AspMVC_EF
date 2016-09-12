@@ -1,0 +1,706 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TestingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Test">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Test_Type_Id" Type="int" Nullable="false" />
+          <Property Name="Insurance_Id" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Test_Db">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="WebConnectionString" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="CisConnectionString" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Test_Group">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Test_Group_Ref">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Test_Id" Type="int" Nullable="false" />
+          <Property Name="Test_Group_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Test_Result">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Test_Schedule_Id" Type="int" Nullable="false" />
+          <Property Name="Test_Group_Id" Type="int" Nullable="false" />
+          <Property Name="Test_Id" Type="int" Nullable="false" />
+          <Property Name="Test_User_Id" Type="int" Nullable="false" />
+          <Property Name="Flag_Ok" Type="int" />
+          <Property Name="Result" Type="nvarchar" MaxLength="2048" />
+          <Property Name="Time_Start" Type="datetime" />
+          <Property Name="Time_Stop" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Test_Schedule">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Test_Group_Id" Type="int" Nullable="false" />
+          <Property Name="Time_Start" Type="datetime" />
+          <Property Name="Flag_Start" Type="int" />
+          <Property Name="Flag_Stop" Type="int" />
+          <Property Name="Test_Url_Id" Type="int" Nullable="false" />
+          <Property Name="Test_Db_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Test_Type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Test_Url">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Url" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Test_User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Test_Url_Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Test_Group_Ref_Test_Group">
+          <End Role="Test_Group" Type="Self.Test_Group" Multiplicity="1" />
+          <End Role="Test_Group_Ref" Type="Self.Test_Group_Ref" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test_Group">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Test_Group_Ref">
+              <PropertyRef Name="Test_Group_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Test_Group_Ref_Test_Id">
+          <End Role="Test" Type="Self.Test" Multiplicity="1" />
+          <End Role="Test_Group_Ref" Type="Self.Test_Group_Ref" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Test_Group_Ref">
+              <PropertyRef Name="Test_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Test_Result_Test">
+          <End Role="Test" Type="Self.Test" Multiplicity="1" />
+          <End Role="Test_Result" Type="Self.Test_Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Test_Result">
+              <PropertyRef Name="Test_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Test_Result_Test_Group">
+          <End Role="Test_Group" Type="Self.Test_Group" Multiplicity="1" />
+          <End Role="Test_Result" Type="Self.Test_Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test_Group">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Test_Result">
+              <PropertyRef Name="Test_Group_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Test_Result_Test_Schedule">
+          <End Role="Test_Schedule" Type="Self.Test_Schedule" Multiplicity="1" />
+          <End Role="Test_Result" Type="Self.Test_Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test_Schedule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Test_Result">
+              <PropertyRef Name="Test_Schedule_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Test_Result_Test_User">
+          <End Role="Test_User" Type="Self.Test_User" Multiplicity="1" />
+          <End Role="Test_Result" Type="Self.Test_Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test_User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Test_Result">
+              <PropertyRef Name="Test_User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Test_Schedule_Test_Db">
+          <End Role="Test_Db" Type="Self.Test_Db" Multiplicity="1" />
+          <End Role="Test_Schedule" Type="Self.Test_Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test_Db">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Test_Schedule">
+              <PropertyRef Name="Test_Db_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Test_Schedule_Test_Group">
+          <End Role="Test_Group" Type="Self.Test_Group" Multiplicity="1" />
+          <End Role="Test_Schedule" Type="Self.Test_Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test_Group">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Test_Schedule">
+              <PropertyRef Name="Test_Group_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Test_Schedule_Test_Url">
+          <End Role="Test_Url" Type="Self.Test_Url" Multiplicity="1" />
+          <End Role="Test_Schedule" Type="Self.Test_Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test_Url">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Test_Schedule">
+              <PropertyRef Name="Test_Url_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Test_Test_Type">
+          <End Role="Test_Type" Type="Self.Test_Type" Multiplicity="1" />
+          <End Role="Test" Type="Self.Test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test_Type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Test">
+              <PropertyRef Name="Test_Type_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Test_User_Test_Url">
+          <End Role="Test_Url" Type="Self.Test_Url" Multiplicity="1" />
+          <End Role="Test_User" Type="Self.Test_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test_Url">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Test_User">
+              <PropertyRef Name="Test_Url_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TestingModelStoreContainer">
+          <EntitySet Name="Test" EntityType="Self.Test" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Test_Db" EntityType="Self.Test_Db" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Test_Group" EntityType="Self.Test_Group" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Test_Group_Ref" EntityType="Self.Test_Group_Ref" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Test_Result" EntityType="Self.Test_Result" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Test_Schedule" EntityType="Self.Test_Schedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Test_Type" EntityType="Self.Test_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Test_Url" EntityType="Self.Test_Url" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Test_User" EntityType="Self.Test_User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Test_Group_Ref_Test_Group" Association="Self.FK_Test_Group_Ref_Test_Group">
+            <End Role="Test_Group" EntitySet="Test_Group" />
+            <End Role="Test_Group_Ref" EntitySet="Test_Group_Ref" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_Group_Ref_Test_Id" Association="Self.FK_Test_Group_Ref_Test_Id">
+            <End Role="Test" EntitySet="Test" />
+            <End Role="Test_Group_Ref" EntitySet="Test_Group_Ref" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_Result_Test" Association="Self.FK_Test_Result_Test">
+            <End Role="Test" EntitySet="Test" />
+            <End Role="Test_Result" EntitySet="Test_Result" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_Result_Test_Group" Association="Self.FK_Test_Result_Test_Group">
+            <End Role="Test_Group" EntitySet="Test_Group" />
+            <End Role="Test_Result" EntitySet="Test_Result" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_Result_Test_Schedule" Association="Self.FK_Test_Result_Test_Schedule">
+            <End Role="Test_Schedule" EntitySet="Test_Schedule" />
+            <End Role="Test_Result" EntitySet="Test_Result" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_Result_Test_User" Association="Self.FK_Test_Result_Test_User">
+            <End Role="Test_User" EntitySet="Test_User" />
+            <End Role="Test_Result" EntitySet="Test_Result" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_Schedule_Test_Db" Association="Self.FK_Test_Schedule_Test_Db">
+            <End Role="Test_Db" EntitySet="Test_Db" />
+            <End Role="Test_Schedule" EntitySet="Test_Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_Schedule_Test_Group" Association="Self.FK_Test_Schedule_Test_Group">
+            <End Role="Test_Group" EntitySet="Test_Group" />
+            <End Role="Test_Schedule" EntitySet="Test_Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_Schedule_Test_Url" Association="Self.FK_Test_Schedule_Test_Url">
+            <End Role="Test_Url" EntitySet="Test_Url" />
+            <End Role="Test_Schedule" EntitySet="Test_Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_Test_Type" Association="Self.FK_Test_Test_Type">
+            <End Role="Test_Type" EntitySet="Test_Type" />
+            <End Role="Test" EntitySet="Test" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_User_Test_Url" Association="Self.FK_Test_User_Test_Url">
+            <End Role="Test_Url" EntitySet="Test_Url" />
+            <End Role="Test_User" EntitySet="Test_User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TestingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Test">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Test_Type_Id" Type="Int32" Nullable="false" />
+          <Property Name="Insurance_Id" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Test_Group_Ref" Relationship="Self.FK_Test_Group_Ref_Test_Id" FromRole="Test" ToRole="Test_Group_Ref" />
+          <NavigationProperty Name="Test_Result" Relationship="Self.FK_Test_Result_Test" FromRole="Test" ToRole="Test_Result" />
+          <NavigationProperty Name="Test_Type" Relationship="TestingModel.FK_Test_Test_Type" FromRole="Test" ToRole="Test_Type" />
+        </EntityType>
+        <EntityType Name="Test_Db">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WebConnectionString" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CisConnectionString" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Test_Schedule" Relationship="TestingModel.FK_Test_Schedule_Test_Db" FromRole="Test_Db" ToRole="Test_Schedule" />
+        </EntityType>
+        <EntityType Name="Test_Group">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Test_Group_Ref" Relationship="TestingModel.FK_Test_Group_Ref_Test_Group" FromRole="Test_Group" ToRole="Test_Group_Ref" />
+          <NavigationProperty Name="Test_Result" Relationship="TestingModel.FK_Test_Result_Test_Group" FromRole="Test_Group" ToRole="Test_Result" />
+          <NavigationProperty Name="Test_Schedule" Relationship="TestingModel.FK_Test_Schedule_Test_Group" FromRole="Test_Group" ToRole="Test_Schedule" />
+        </EntityType>
+        <EntityType Name="Test_Group_Ref">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Test_Id" Type="Int32" Nullable="false" />
+          <Property Name="Test_Group_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Test" Relationship="Self.FK_Test_Group_Ref_Test_Id" FromRole="Test_Group_Ref" ToRole="Test" />
+          <NavigationProperty Name="Test_Group" Relationship="TestingModel.FK_Test_Group_Ref_Test_Group" FromRole="Test_Group_Ref" ToRole="Test_Group" />
+        </EntityType>
+        <EntityType Name="Test_Result">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Test_Schedule_Id" Type="Int32" Nullable="false" />
+          <Property Name="Test_Group_Id" Type="Int32" Nullable="false" />
+          <Property Name="Test_Id" Type="Int32" Nullable="false" />
+          <Property Name="Flag_Ok" Type="Int32" />
+          <Property Name="Result" Type="String" MaxLength="2048" FixedLength="false" Unicode="true" />
+          <Property Name="Time_Start" Type="DateTime" Precision="3" />
+          <Property Name="Time_Stop" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Test" Relationship="Self.FK_Test_Result_Test" FromRole="Test_Result" ToRole="Test" />
+          <Property Name="Test_User_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Test_Group" Relationship="TestingModel.FK_Test_Result_Test_Group" FromRole="Test_Result" ToRole="Test_Group" />
+          <NavigationProperty Name="Test_Schedule" Relationship="TestingModel.FK_Test_Result_Test_Schedule" FromRole="Test_Result" ToRole="Test_Schedule" />
+          <NavigationProperty Name="Test_User" Relationship="TestingModel.FK_Test_Result_Test_User" FromRole="Test_Result" ToRole="Test_User" />
+        </EntityType>
+        <EntityType Name="Test_Schedule">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Test_Group_Id" Type="Int32" Nullable="false" />
+          <Property Name="Time_Start" Type="DateTime" Precision="3" />
+          <Property Name="Flag_Start" Type="Int32" />
+          <Property Name="Flag_Stop" Type="Int32" />
+          <Property Name="Test_Url_Id" Type="Int32" Nullable="false" />
+          <Property Name="Test_Db_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Test_Db" Relationship="TestingModel.FK_Test_Schedule_Test_Db" FromRole="Test_Schedule" ToRole="Test_Db" />
+          <NavigationProperty Name="Test_Group" Relationship="TestingModel.FK_Test_Schedule_Test_Group" FromRole="Test_Schedule" ToRole="Test_Group" />
+          <NavigationProperty Name="Test_Result" Relationship="TestingModel.FK_Test_Result_Test_Schedule" FromRole="Test_Schedule" ToRole="Test_Result" />
+          <NavigationProperty Name="Test_Url" Relationship="TestingModel.FK_Test_Schedule_Test_Url" FromRole="Test_Schedule" ToRole="Test_Url" />
+        </EntityType>
+        <EntityType Name="Test_Type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Test" Relationship="TestingModel.FK_Test_Test_Type" FromRole="Test_Type" ToRole="Test" />
+        </EntityType>
+        <EntityType Name="Test_Url">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Url" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Test_User" Relationship="Self.FK_Test_User_Test_Url" FromRole="Test_Url" ToRole="Test_User" />
+          <NavigationProperty Name="Test_Schedule" Relationship="TestingModel.FK_Test_Schedule_Test_Url" FromRole="Test_Url" ToRole="Test_Schedule" />
+        </EntityType>
+        <EntityType Name="Test_User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Test_Url_Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Test_Url" Relationship="Self.FK_Test_User_Test_Url" FromRole="Test_User" ToRole="Test_Url" />
+          <NavigationProperty Name="Test_Result" Relationship="TestingModel.FK_Test_Result_Test_User" FromRole="Test_User" ToRole="Test_Result" />
+        </EntityType>
+        <Association Name="FK_Test_Group_Ref_Test_Id">
+          <End Role="Test" Type="Self.Test" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Test_Group_Ref" Type="Self.Test_Group_Ref" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Test_Group_Ref">
+              <PropertyRef Name="Test_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Test_Result_Test">
+          <End Role="Test" Type="Self.Test" Multiplicity="1" />
+          <End Role="Test_Result" Type="Self.Test_Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Test_Result">
+              <PropertyRef Name="Test_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Test_User_Test_Url">
+          <End Role="Test_Url" Type="Self.Test_Url" Multiplicity="1" />
+          <End Role="Test_User" Type="Self.Test_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test_Url">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Test_User">
+              <PropertyRef Name="Test_Url_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Test" EntityType="Self.Test" />
+          <EntitySet Name="Test_Db" EntityType="Self.Test_Db" />
+          <EntitySet Name="Test_Group" EntityType="Self.Test_Group" />
+          <EntitySet Name="Test_Group_Ref" EntityType="Self.Test_Group_Ref" />
+          <EntitySet Name="Test_Result" EntityType="Self.Test_Result" />
+          <EntitySet Name="Test_Schedule" EntityType="Self.Test_Schedule" />
+          <EntitySet Name="Test_Type" EntityType="Self.Test_Type" />
+          <EntitySet Name="Test_Url" EntityType="Self.Test_Url" />
+          <EntitySet Name="Test_User" EntityType="Self.Test_User" />
+          <AssociationSet Name="FK_Test_Group_Ref_Test_Id" Association="Self.FK_Test_Group_Ref_Test_Id">
+            <End Role="Test" EntitySet="Test" />
+            <End Role="Test_Group_Ref" EntitySet="Test_Group_Ref" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_Result_Test" Association="Self.FK_Test_Result_Test">
+            <End Role="Test" EntitySet="Test" />
+            <End Role="Test_Result" EntitySet="Test_Result" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_User_Test_Url" Association="Self.FK_Test_User_Test_Url">
+            <End Role="Test_Url" EntitySet="Test_Url" />
+            <End Role="Test_User" EntitySet="Test_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_Test_Type" Association="TestingModel.FK_Test_Test_Type">
+            <End Role="Test_Type" EntitySet="Test_Type" />
+            <End Role="Test" EntitySet="Test" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_Schedule_Test_Db" Association="TestingModel.FK_Test_Schedule_Test_Db">
+            <End Role="Test_Db" EntitySet="Test_Db" />
+            <End Role="Test_Schedule" EntitySet="Test_Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_Group_Ref_Test_Group" Association="TestingModel.FK_Test_Group_Ref_Test_Group">
+            <End Role="Test_Group" EntitySet="Test_Group" />
+            <End Role="Test_Group_Ref" EntitySet="Test_Group_Ref" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_Result_Test_Group" Association="TestingModel.FK_Test_Result_Test_Group">
+            <End Role="Test_Group" EntitySet="Test_Group" />
+            <End Role="Test_Result" EntitySet="Test_Result" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_Schedule_Test_Group" Association="TestingModel.FK_Test_Schedule_Test_Group">
+            <End Role="Test_Group" EntitySet="Test_Group" />
+            <End Role="Test_Schedule" EntitySet="Test_Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_Result_Test_Schedule" Association="TestingModel.FK_Test_Result_Test_Schedule">
+            <End Role="Test_Schedule" EntitySet="Test_Schedule" />
+            <End Role="Test_Result" EntitySet="Test_Result" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_Result_Test_User" Association="TestingModel.FK_Test_Result_Test_User">
+            <End Role="Test_User" EntitySet="Test_User" />
+            <End Role="Test_Result" EntitySet="Test_Result" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_Schedule_Test_Url" Association="TestingModel.FK_Test_Schedule_Test_Url">
+            <End Role="Test_Url" EntitySet="Test_Url" />
+            <End Role="Test_Schedule" EntitySet="Test_Schedule" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_Test_Test_Type">
+          <End Type="TestingModel.Test_Type" Role="Test_Type" Multiplicity="1" />
+          <End Type="TestingModel.Test" Role="Test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test_Type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Test">
+              <PropertyRef Name="Test_Type_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Test_Schedule_Test_Db">
+          <End Type="TestingModel.Test_Db" Role="Test_Db" Multiplicity="1" />
+          <End Type="TestingModel.Test_Schedule" Role="Test_Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test_Db">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Test_Schedule">
+              <PropertyRef Name="Test_Db_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Test_Group_Ref_Test_Group">
+          <End Type="TestingModel.Test_Group" Role="Test_Group" Multiplicity="1" />
+          <End Type="TestingModel.Test_Group_Ref" Role="Test_Group_Ref" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test_Group">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Test_Group_Ref">
+              <PropertyRef Name="Test_Group_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Test_Result_Test_Group">
+          <End Type="TestingModel.Test_Group" Role="Test_Group" Multiplicity="1" />
+          <End Type="TestingModel.Test_Result" Role="Test_Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test_Group">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Test_Result">
+              <PropertyRef Name="Test_Group_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Test_Schedule_Test_Group">
+          <End Type="TestingModel.Test_Group" Role="Test_Group" Multiplicity="1" />
+          <End Type="TestingModel.Test_Schedule" Role="Test_Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test_Group">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Test_Schedule">
+              <PropertyRef Name="Test_Group_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Test_Result_Test_Schedule">
+          <End Type="TestingModel.Test_Schedule" Role="Test_Schedule" Multiplicity="1" />
+          <End Type="TestingModel.Test_Result" Role="Test_Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test_Schedule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Test_Result">
+              <PropertyRef Name="Test_Schedule_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Test_Result_Test_User">
+          <End Type="TestingModel.Test_User" Role="Test_User" Multiplicity="1" />
+          <End Type="TestingModel.Test_Result" Role="Test_Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test_User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Test_Result">
+              <PropertyRef Name="Test_User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Test_Schedule_Test_Url">
+          <End Type="TestingModel.Test_Url" Role="Test_Url" Multiplicity="1" />
+          <End Type="TestingModel.Test_Schedule" Role="Test_Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test_Url">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Test_Schedule">
+              <PropertyRef Name="Test_Url_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TestingModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Test">
+            <EntityTypeMapping TypeName="TestingModel.Test">
+              <MappingFragment StoreEntitySet="Test">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Test_Type_Id" ColumnName="Test_Type_Id" />
+                <ScalarProperty Name="Insurance_Id" ColumnName="Insurance_Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Test_Db">
+            <EntityTypeMapping TypeName="TestingModel.Test_Db">
+              <MappingFragment StoreEntitySet="Test_Db">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="WebConnectionString" ColumnName="WebConnectionString" />
+                <ScalarProperty Name="CisConnectionString" ColumnName="CisConnectionString" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Test_Group">
+            <EntityTypeMapping TypeName="TestingModel.Test_Group">
+              <MappingFragment StoreEntitySet="Test_Group">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Test_Group_Ref">
+            <EntityTypeMapping TypeName="TestingModel.Test_Group_Ref">
+              <MappingFragment StoreEntitySet="Test_Group_Ref">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Test_Id" ColumnName="Test_Id" />
+                <ScalarProperty Name="Test_Group_Id" ColumnName="Test_Group_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Test_Result">
+            <EntityTypeMapping TypeName="TestingModel.Test_Result">
+              <MappingFragment StoreEntitySet="Test_Result">
+                <ScalarProperty Name="Test_User_Id" ColumnName="Test_User_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Test_Schedule_Id" ColumnName="Test_Schedule_Id" />
+                <ScalarProperty Name="Test_Group_Id" ColumnName="Test_Group_Id" />
+                <ScalarProperty Name="Test_Id" ColumnName="Test_Id" />
+                <ScalarProperty Name="Flag_Ok" ColumnName="Flag_Ok" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Time_Start" ColumnName="Time_Start" />
+                <ScalarProperty Name="Time_Stop" ColumnName="Time_Stop" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Test_Schedule">
+            <EntityTypeMapping TypeName="TestingModel.Test_Schedule">
+              <MappingFragment StoreEntitySet="Test_Schedule">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Test_Group_Id" ColumnName="Test_Group_Id" />
+                <ScalarProperty Name="Time_Start" ColumnName="Time_Start" />
+                <ScalarProperty Name="Flag_Start" ColumnName="Flag_Start" />
+                <ScalarProperty Name="Flag_Stop" ColumnName="Flag_Stop" />
+                <ScalarProperty Name="Test_Url_Id" ColumnName="Test_Url_Id" />
+                <ScalarProperty Name="Test_Db_Id" ColumnName="Test_Db_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Test_Type">
+            <EntityTypeMapping TypeName="TestingModel.Test_Type">
+              <MappingFragment StoreEntitySet="Test_Type">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Test_Url">
+            <EntityTypeMapping TypeName="TestingModel.Test_Url">
+              <MappingFragment StoreEntitySet="Test_Url">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Test_User">
+            <EntityTypeMapping TypeName="TestingModel.Test_User">
+              <MappingFragment StoreEntitySet="Test_User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Test_Url_Id" ColumnName="Test_Url_Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
